@@ -9,10 +9,8 @@ async function bootstrap() {
 
 	app.setGlobalPrefix("api");
 
-	const allowedOrigins = process.env.FRONTEND_URL?.split(",") || [];
-
 	app.enableCors({
-		origin: allowedOrigins,
+		origin: process.env.FRONTEND_URL,
 		methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 		allowedHeaders: ["Content-Type", "Authorization"],
 	});
