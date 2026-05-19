@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { StockMovementsService } from './stock-movements.service';
 import { AdjustStockDto } from './dto/adjust-stock.dto';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { JwtPayload } from '../common/types/jwt-payload.type';
+import type { JwtPayload } from '../common/types/jwt-payload.type';
 
 @Controller('stock-movements')
 export class StockMovementsController {

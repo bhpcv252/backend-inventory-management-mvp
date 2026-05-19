@@ -2,7 +2,7 @@ import { Body, Controller, Get, Patch } from '@nestjs/common';
 import { IsInt, Min } from 'class-validator';
 import { SettingsService } from './settings.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { JwtPayload } from '../common/types/jwt-payload.type';
+import type { JwtPayload } from '../common/types/jwt-payload.type';
 
 class UpdateSettingsDto {
   @IsInt()
