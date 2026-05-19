@@ -1,8 +1,28 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { NestFactory, Reflector } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
+import { AppModule } from "./app.module";
+import { JwtAuthGuard } from "./auth/jwt-auth.guard";
+import { RolesGuard } from "./auth/roles.guard";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+	const app = await NestFactory.create(AppModule);
+
+	app.setGlobalPrefix("api");
+
+	app.enableCors({ origin: "http://localhost:3000" });
+
+	app.useGlobalPipes(
+		new ValidationPipe({
+			whitelist: true, // strip unknown properties
+			forbidNonWhitelisted: true, // 400 if unknown properties are sent
+			transform: true, // auto-cast query params, etc.
+		}),
+	);
+
+	const reflector = app.get(Reflector);
+	app.useGlobalGuards(new JwtAuthGuard(reflector), new RolesGuard(reflector));
+
+	await app.listen(process.env.PORT ?? 3001);
+	console.log(`StockFlow API running on port ${process.env.PORT ?? 3001}`);
 }
 bootstrap();
