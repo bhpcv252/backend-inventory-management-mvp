@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { JwtPayload } from '../common/types/jwt-payload.type';
+import type { JwtPayload } from '../common/types/jwt-payload.type';
 
 @Controller('dashboard')
 export class DashboardController {
