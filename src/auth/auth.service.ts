@@ -47,7 +47,7 @@ export class AuthService {
 		const user = await this.prisma.user.findUnique({
 			where: { email: dto.email },
 		});
-		// Deliberate: same error for "not found" and "wrong password" to avoid user enumeration
+		// same error for "not found" and "wrong password"
 		if (!user) throw new UnauthorizedException("Invalid credentials");
 
 		const valid = await bcrypt.compare(dto.password, user.passwordHash);
